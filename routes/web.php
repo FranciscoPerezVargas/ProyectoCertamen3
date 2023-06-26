@@ -17,13 +17,18 @@ use App\Http\Controllers\publicoController;
 */
 
 //Home
-Route::get('/',[homeController::class,'login'])->name('home.login');
+Route::get('/',[homeController::class,'index'])->name('home.login');
+Route::get('/homePerfil',[homeController::class,'perfil'])->name('home.crearPerfil');
+Route::post('/storePerfil',[homeController::class,'store'])->name('store.crearPerfil');
+Route::post('/loginAdmin', [homeController::class, 'loginAdmin'])->name('loginAdmin');
+Route::post('/loginArtista', [homeController::class, 'loginArtista'])->name('loginArtista');
 
 //Administrador
 Route::get('/administrador',[administradorController::class,'index'])->name('administrador.index');
 
 //Artista
 Route::get('/artista',[artistaController::class,'index'])->name('artista.index');
+Route::post('/store-imagen', [artistaController::class, 'store'])->name('store.imagen');
 
 //Publico
 Route::get('/publico',[publicoController::class,'index'])->name('publico.index');

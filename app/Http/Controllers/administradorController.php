@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Imagen;
 
 class administradorController extends Controller
 {
@@ -10,4 +11,12 @@ class administradorController extends Controller
         
         return view('administrador.index');
     }
+   /* public function store(Request $request)
+{
+   
+    $nuevaCuenta = new Cuenta();
+
+}*/
+
+
 }

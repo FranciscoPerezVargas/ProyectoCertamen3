@@ -1,49 +1,66 @@
-@extends('layouts.masterDeMaster')
+@extends('layouts.masterHome')
 
 
-@yield('contenido-principal')
-<div class="container">
-    <h1 style="text-align: center">Bienvenido a no instagram</h1>
-    <div class="forms">
-        <div class="card">
-            <div class="card-header">
-                Administrador
-            </div>
-            <div class="card-body">
-                <!-- Formulario 1 Administrador -->
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Ingrese Gmail</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-                <form action="{{ route('administrador.index') }}">   
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+@yield('contenido-home')
+<body>
+<div class="container-fluid">
+    <div class="row">
         
+        <div class="col-12 text-end">
+            <a href="{{ route('home.crearPerfil') }}" class="btn btn-primary btn-xl">Crea tu perfil</a>
+        </div>
+    </div>
+</div>
+    
+<div class="container" >
+    
+    <h1 style="text-align: center">Bienvenido a no instagram</h1>
+    
+    <div class="forms">
+        <!-- Formulario 1 Administrador -->
+    <div class="card">
+        <div class="card-header">
+            Administrador
+        </div>
+        <div class="card-body">
+            <form action="{{ route('loginAdmin') }}" method="POST">
+
+                @csrf
+                <div class="mb-3">
+                    <label for="user" class="form-label">Usuario</label>
+                    <input type="email" class="form-control" id="user" name="user">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- Formulario 2 Artista -->
         <div class="card">
             <div class="card-header">
                 Artista
             </div>
             <div class="card-body">
-                <!-- Formulario 2 Artista -->
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Ingrese Gmail</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Contraseña artisticamente</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-                <form action="{{ route('artista.index') }}">   
+                <form action="{{ route('loginArtista') }}" method="POST">
+
+                    @csrf
+                    <div class="mb-3">
+                        <label for="user" class="form-label">Usuario</label>
+                        <input type="email" class="form-control" id="user" name="user">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
                     </div>
                 </form>
             </div>
@@ -62,3 +79,4 @@
         
     </div>
 </div>
+</body>

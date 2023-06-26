@@ -20,14 +20,8 @@
             margin: 0;
             padding: 0;
         }
-            
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+       
+       
 
         h1 {
             font-size: 148px;
@@ -54,14 +48,35 @@
         .card-header{
             text-align: center; 
         }
-        
+        .transparent-table {
+            background-color: transparent;
+        }
+        table{
+            background-color: transparent;
+        }
+        #navbarPrincipal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        /* Ajusta el ancho del navbar según tus necesidades */
+        /* Ejemplo: */
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .transparent-table {
+            background-color: transparent;
+        }
     </style>
+    <!-- datos -->
+
+    
 </head>
 <body>
+    @yield('contenido-principal')
     
-            <!-- datos -->
-            @yield('contenido-principal')
-           
 </body>
 </html>
 
