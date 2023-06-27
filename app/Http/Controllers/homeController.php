@@ -26,22 +26,14 @@ class homeController extends Controller
         $nuevaCuenta->password = $request->password;
         
         $nuevaCuenta->apellido = $request->apellido;
-        // Agregar "A" o "a" al principio de "user" si el perfil es administrador
-        if ($request->perfil_id == 1) {
-            $nuevaCuenta->user = 'A' . $nuevaCuenta->user;
-        }
-        if ($request->perfil_id == 2) {
-        $nuevaCuenta->user = 'a' . $nuevaCuenta->user;
-        }
-
+        
     
         if (Cuenta::where('user', $nuevaCuenta->user)->exists()) {
             return redirect()->back()->with('error', 'El nombre de usuario ya está en uso.');
         }
-        $nuevoPerfil = new Perfil();
-        $nuevoPerfil->nombre = $request->nombre;
-        $nuevoPerfil->save();
-        $nuevaCuenta->perfil_id = $nuevoPerfil->id;
+       
+        $nuevaCuenta->perfil_id = $request->perfil_id;
+       
         $nuevaCuenta->nombre = $request->nombre;
 
         
@@ -55,29 +47,41 @@ class homeController extends Controller
     {
         $user = $request->user;
         $password = $request->password;
-        $user = 'A' . $user;
+    
         // Verificar si el usuario existe y cumple con las condiciones
         $cuenta = Cuenta::where('user', $user)->first();
         
         if (!$cuenta || $cuenta->password !== $password) {
             return redirect()->back()->with('error', 'Credenciales inválidas.');
         }
+        if ($cuenta->perfil_id !== 1) {
+            return redirect()->back()->with('error', 'Acceso no autorizado.');
+        }
+        $cuentas = Cuenta::where('perfil_id', 1)->get();
     
-        return redirect()->route('administrador.index');
+        return view('administrador.index', compact('cuenta', 'cuentas'));
     }
+
+
     public function loginArtista(Request $request)
     {
         $user = $request->user;
+        
         $password = $request->password;
-        $user = 'a' . $user;
+        
         // Verificar si el usuario existe y cumple con las condiciones
         $cuenta = Cuenta::where('user', $user)->first();
         
         if (!$cuenta || $cuenta->password !== $password) {
             return redirect()->back()->with('error', 'Credenciales inválidas.');
         }
+        if ($cuenta->perfil_id !== 2) {
+            return redirect()->back()->with('error', 'Acceso no autorizado.');
+        }
+        $cuentas = Cuenta::where('perfil_id', 2)->get();
+        
     
-        return redirect()->route('artista.index');
+        return view('artista.index', compact('cuenta','cuentas'));
     }
 
 

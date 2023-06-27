@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class cuenta extends Model
 {
     use HasFactory;
@@ -20,6 +21,6 @@ class cuenta extends Model
 
     public function imagenes()
     {
-        return $this->hasMany('\App\Models\Imagen');
+        return $this->hasMany('\App\Models\Imagen', 'cuenta_user', 'user');
     }
 }

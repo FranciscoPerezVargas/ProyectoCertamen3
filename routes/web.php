@@ -16,6 +16,7 @@ use App\Http\Controllers\publicoController;
 |
 */
 
+
 //Home
 Route::get('/',[homeController::class,'index'])->name('home.login');
 Route::get('/homePerfil',[homeController::class,'perfil'])->name('home.crearPerfil');
@@ -28,7 +29,7 @@ Route::get('/administrador',[administradorController::class,'index'])->name('adm
 
 //Artista
 Route::get('/artista',[artistaController::class,'index'])->name('artista.index');
-Route::post('/store-imagen', [artistaController::class, 'store'])->name('store.imagen');
+Route::post('/artistaStore', [artistaController::class, 'store'])->name('artista.store');
 
 //Publico
 Route::get('/publico',[publicoController::class,'index'])->name('publico.index');

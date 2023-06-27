@@ -1,7 +1,24 @@
 @extends('layouts.masterAdmin')
 
 @section('contenido-admin')
+<div class="container bg-ternary mt-4">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            
+            <a class="navbar-brand" href="#">Bienvenido {{$cuenta->nombre}}</a>
+        
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+        </div>
+        <div class="col-xl-1 col-m-12 text-end d-lg-block  m-4">
+            <a href="{{route('home.login')}}" class="text-dark">Cerrar Sesión</a>
+        </div>
+      </nav>
 
+   
+</div>
 
 <div class="container  border border-5 border-info mt-4 rounded mb-2" style = "height:auto;">
     <div class="row m-2 ">
@@ -51,6 +68,7 @@
       
         
         <body>
+
             <div class="row mt-4 row-flex">
                 <table class="table transparent-table" style="background-color: transparent;">
                     <thead>
@@ -63,31 +81,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($cuentas as $num=>$cuent)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark@gmail.com</td>
-                            <td>Ottoa</td>
-                            <td>El botton aaaa</td>
+                            <th scope="row">{{$num}}</th>
+                            <td>{{ $cuent->user }}</td>
+                            <td>{{$cuent -> nombre}} {{$cuent -> apellido}}</td>
+                            <td>hola</td>
+
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>boton</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <th >Larrythebird@gmail.com</th>
-                            <th >Larry the bird</th>
-                            <td>boton</td>
-                        </tr>
+                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>
             
         </body>
         
-        
+      
  </div>
 
     @endsection

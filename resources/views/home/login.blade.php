@@ -29,7 +29,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="user" class="form-label">Usuario</label>
-                    <input type="email" class="form-control" id="user" name="user">
+                    <input type="text" class="form-control" id="user" name="user">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
@@ -53,7 +53,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="user" class="form-label">Usuario</label>
-                        <input type="email" class="form-control" id="user" name="user">
+                        <input type="text" class="form-control" id="user" name="user">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
