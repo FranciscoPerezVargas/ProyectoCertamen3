@@ -21,8 +21,8 @@ use App\Http\Controllers\publicoController;
 Route::get('/',[homeController::class,'index'])->name('home.login');
 Route::get('/homePerfil',[homeController::class,'perfil'])->name('home.crearPerfil');
 Route::post('/storePerfil',[homeController::class,'store'])->name('store.crearPerfil');
-Route::post('/loginAdmin', [homeController::class, 'loginAdmin'])->name('loginAdmin');
-Route::post('/loginArtista', [homeController::class, 'loginArtista'])->name('loginArtista');
+//Route::post('/loginAdmin', [homeController::class, 'loginAdmin'])->name('loginAdmin');
+//Route::post('/loginArtista', [homeController::class, 'loginArtista'])->name('loginArtista');
 
 //Administrador
 Route::get('/administrador',[administradorController::class,'index'])->name('administrador.index');
@@ -34,3 +34,5 @@ Route::post('/artistaStore', [artistaController::class, 'store'])->name('artista
 //Publico
 Route::get('/publico',[publicoController::class,'index'])->name('publico.index');
 
+Route::delete('/imagen/{id}/eliminar', [artistaController::class,'eliminar'])->name('imagen.eliminar');
+Route::post('/imagen/{id}/cambiar-titulo', [artistaController::class,'cambiarTitulo'])->name('imagen.cambiar-titulo');

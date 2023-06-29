@@ -10,9 +10,25 @@ use App\Models\Cuenta;
 
 class artistaController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         
-        return view('artista.index');
+        $user = $request->user;
+        
+        $password = $request->password;
+        
+        // Verificar si el usuario existe y cumple con las condiciones
+        $cuenta = Cuenta::where('user', $user)->first();
+        
+        if (!$cuenta || $cuenta->password !== $password) {
+            return redirect()->back()->with('error', 'Credenciales inválidas.');
+        }
+        if ($cuenta->perfil_id !== 2) {
+            return redirect()->back()->with('error', 'Acceso no autorizado.');
+        }
+        $cuentas = Cuenta::where('perfil_id', 2)->get();
+        
+    
+        return view('artista.index', compact('cuenta','cuentas'));
     }
 
 
@@ -25,9 +41,7 @@ class artistaController extends Controller
         $nuevaImagen->cuenta_user = $request->cuenta_user;
         
         $path = $request->archivo->store('imagenes', 'public');
-        $nuevaImagen->archivo = Storage::url($path);
-
-        
+        $nuevaImagen->archivo = $path;
 
         $nuevaImagen->save();
         
@@ -35,8 +49,33 @@ class artistaController extends Controller
 
         $imagenes = $cuenta->imagenes; 
 
-        return view('artista.index', compact('cuenta','imagenes'));
-        
+        //return view('artista.index', compact('cuenta','imagenes'));
+        return redirect()->route('artista.index');
+       
     }
 
+
+
+    public function eliminar($id)
+{
+    $imagen = Imagen::findOrFail($id);
+    
+    // Eliminar el archivo físico de la imagen si se desea
+    Storage::delete($imagen->archivo);
+    
+    // Eliminar la imagen de la base de datos
+    $imagen->delete();
+    
+    return redirect()->back()->with('success', 'Imagen eliminada correctamente');
+}
+public function cambiarTitulo(Request $request, $id)
+{
+    $imagen = Imagen::findOrFail($id);
+    $nuevoTitulo = $request->input('nuevo_titulo');
+    
+    $imagen->titulo = $nuevoTitulo;
+    $imagen->save();
+    
+    return redirect()->back()->with('success', 'Título de imagen cambiado correctamente');
+}
 }

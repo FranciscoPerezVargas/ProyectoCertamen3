@@ -24,7 +24,7 @@
             Administrador
         </div>
         <div class="card-body">
-            <form action="{{ route('loginAdmin') }}" method="POST">
+            <form action="{{ route('administrador.index') }}" method="GET">
 
                 @csrf
                 <div class="mb-3">
@@ -48,7 +48,7 @@
                 Artista
             </div>
             <div class="card-body">
-                <form action="{{ route('loginArtista') }}" method="POST">
+                <form action="{{ route('artista.index') }}" method="GET">
 
                     @csrf
                     <div class="mb-3">

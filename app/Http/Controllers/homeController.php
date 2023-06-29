@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Imagen;
 use App\Models\Perfil;
 use App\Models\Cuenta;
+
+
 class homeController extends Controller
 {
     public function index(){
@@ -43,6 +45,8 @@ class homeController extends Controller
         return redirect()->route('home.login');
     }
     
+    
+    /*
     public function loginAdmin(Request $request)
     {
         $user = $request->user;
@@ -60,9 +64,9 @@ class homeController extends Controller
         $cuentas = Cuenta::where('perfil_id', 1)->get();
     
         return view('administrador.index', compact('cuenta', 'cuentas'));
-    }
+    }*/
 
-
+/*
     public function loginArtista(Request $request)
     {
         $user = $request->user;
@@ -82,7 +86,8 @@ class homeController extends Controller
         
     
         return view('artista.index', compact('cuenta','cuentas'));
-    }
+        
+    }*/
 
 
 
