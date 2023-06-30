@@ -10,26 +10,26 @@ use App\Models\Cuenta;
 
 class artistaController extends Controller
 {
-    public function index(Request $request){
-        
-        $user = $request->user;
-        
-        $password = $request->password;
-        
-        // Verificar si el usuario existe y cumple con las condiciones
-        $cuenta = Cuenta::where('user', $user)->first();
-        
-        if (!$cuenta || $cuenta->password !== $password) {
-            return redirect()->back()->with('error', 'Credenciales inválidas.');
-        }
-        if ($cuenta->perfil_id !== 2) {
-            return redirect()->back()->with('error', 'Acceso no autorizado.');
-        }
-        $cuentas = Cuenta::where('perfil_id', 2)->get();
-        
+    public function index(Request $request)
+{
+    $user = $request->user;
+    $password = $request->password;
     
-        return view('artista.index', compact('cuenta','cuentas'));
+    // Verificar si el usuario existe y cumple con las condiciones
+    $cuenta = Cuenta::where('user', $user)->first();
+    
+    if (!$cuenta || $cuenta->password !== $password) {
+        return redirect()->back()->withErrors(['error' => 'Credenciales inválidas.']);
     }
+    if ($cuenta->perfil_id !== 2) {
+        return redirect()->back()->withErrors(['error' => 'Acceso no autorizado.']);
+    }
+    
+    $cuentas = Cuenta::where('perfil_id', 2)->get();
+    
+    return view('artista.index', compact('cuenta', 'cuentas'));
+}
+
 
 
     public function store(Request $request)
@@ -68,6 +68,8 @@ class artistaController extends Controller
     
     return redirect()->back()->with('success', 'Imagen eliminada correctamente');
 }
+
+
 public function cambiarTitulo(Request $request, $id)
 {
     $imagen = Imagen::findOrFail($id);

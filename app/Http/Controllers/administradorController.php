@@ -18,10 +18,10 @@ class administradorController extends Controller
         $cuenta = Cuenta::where('user', $user)->first();
         
         if (!$cuenta || $cuenta->password !== $password) {
-            return redirect()->back()->with('error', 'Credenciales inválidas.');
+            return redirect()->back()->withErrors(['error' => 'Credenciales inválidas.']);
         }
         if ($cuenta->perfil_id !== 1) {
-            return redirect()->back()->with('error', 'Acceso no autorizado.');
+            return redirect()->back()->withErrors(['error' => 'Acceso no autorizado.']);
         }
         $cuentasAd = Cuenta::where('perfil_id', 1)->get();
         $cuentasAr = Cuenta::where('perfil_id', 2)->get();
@@ -45,6 +45,61 @@ class administradorController extends Controller
     $nuevaCuenta = new Cuenta();
 
 }*/
+public function eliminar($user)
+{
+    $cuenta = Cuenta::where('user', $user)->first();
 
+  
+ 
+
+    $cuenta->delete();
+
+    
+    return redirect()->route('cuenta.index')->with('success', 'La cuenta se ha eliminado correctamente.');
+}
+public function deleteCuenta($user)
+{
+    $cuenta = Cuenta::where('user', $user)->first();
+
+    if (!$cuenta) {
+        return redirect()->back()->with('error', 'La cuenta no existe.');
+    }
+
+    $cuenta->delete();
+
+    return redirect()->back()->with('success', 'La cuenta ha sido eliminada exitosamente.');
+}
+
+public function adminArtista($user)
+{
+    $artista = Cuenta::where('user', $user)->where('perfil_id', 2)->first();
+    if (!$artista) {
+        return redirect()->back()->withErrors(['error' => 'Artista no encontrado.']);
+    }
+    $imagenes = Imagen::where('cuenta_user', $user)->get();
+    return view('administrador.adminArtista', compact('artista', 'imagenes'));
+}
+public function banImagen(Imagen $imagen, Request $request)
+{
+    $imagen->baneada = true;
+    $imagen->motivo_ban = $request->input('motivo_ban');
+    $imagen->save();
+
+    return redirect()->back()->with('success', 'Imagen baneada exitosamente.');
+}
+public function desbanImagen($id)
+{
+    $imagen = Imagen::find($id);
+    if (!$imagen) {
+        return redirect()->back()->withErrors(['error' => 'Imagen no encontrada.']);
+    }
+    
+    // Desbanear la imagen
+    $imagen->baneada = false;
+    $imagen->motivo_ban = null;
+    $imagen->save();
+    
+    return redirect()->back()->withSuccess('Imagen desbaneada correctamente.');
+}
 
 }

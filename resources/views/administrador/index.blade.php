@@ -33,26 +33,11 @@
                 <div class="mb-3 mt-2">
                     <h4>Agregar nuevo artista</h4>
                     <div class="row">
-                        <div class="col">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        </div>
-                        <div class="col">
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        
+                        <div class="col-12 text-end">
+                            <a href="{{ route('home.crearPerfil') }}" class="btn btn-primary btn-xl">Crea el perfil</a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="exampleInputPassword1" class="form-label mt-2">Password</label>
-                        </div>
-                        <div class="col">
-                            <input type="password" class="form-control mt-2" id="exampleInputPassword1">
-                        </div>
-                    </div>
-                  <div class="row">
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                    </div>
-                  </div>
                   
               
                 </div>
@@ -63,7 +48,7 @@
         </div>
         
         <div class="col d-flex justify-content-center align-items-center">
-            <form action="{{ route('administrador.index') }}" method="GET">
+            <!--<form action="{{ route('administrador.index') }}" method="GET">
                 <div class="mb-3">
                     <label for="filtro" class="form-label">Filtrar por perfil:</label>
                     <div class="col">
@@ -77,7 +62,17 @@
                     </div>
                    
                 </div>
-            </form>
+            </form>-->
+            <div class="row">
+               Tipos de Perfiles:
+               <div class="col">
+                Administrador
+            </div>
+            <div class="col">
+                Artista
+            </div>
+            </div>
+           
         </div>
         
         <body>
@@ -89,24 +84,50 @@
                             <th scope="col">User</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Perfiles</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-                            @foreach ($cuentas as $num => $cuenta)
-                                <tr>
-                                    <th scope="row">{{ $num + 1 }}</th>
-                                    <td>{{ $cuenta->user }}</td>
-                                    <td>{{ $cuenta->nombre }} {{ $cuenta->apellido }}</td>
-                                    <td>
-                                        @if ($cuenta->perfil_id == 1)
-                                            Administrador
-                                        @elseif ($cuenta->perfil_id == 2)
-                                            Artista
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                        @foreach ($cuentas as $num => $cuenta)
+                        <tr>
+                            <th scope="row">{{ $num + 1 }}</th>
+                            <td>{{ $cuenta->user }}</td>
+                            <td>{{ $cuenta->nombre }} {{ $cuenta->apellido }}</td>
+                            <td>
+                                @if ($cuenta->perfil_id == 1)
+                                    Admin
+                                @elseif ($cuenta->perfil_id == 2)
+                                    Artista
+                                @endif
+                            </td>
+                            @if ($cuenta->perfil_id == 2)
+                                <td>
+                                    <div class="col">
+                                        <form action="{{ route('admin.deleteCuenta', $cuenta->user) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar al usuario {{$cuenta->user}}')">Eliminar cuenta</button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form action="{{ route('admin.artista', $cuenta->user) }}" method="GET">
+                                            @csrf
+                                           
+                                            <button type="submit" class="btn btn-success">VER IMGENES</button>
+                                        </form>
+                                    </div>
+                                    
+                                       
+                                    
+                                </td>
+                                
+                            @else
+                                <td>.</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                    
                         
                     </tbody>
                 </table>

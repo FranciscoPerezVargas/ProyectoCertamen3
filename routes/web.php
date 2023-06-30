@@ -36,3 +36,14 @@ Route::get('/publico',[publicoController::class,'index'])->name('publico.index')
 
 Route::delete('/imagen/{id}/eliminar', [artistaController::class,'eliminar'])->name('imagen.eliminar');
 Route::post('/imagen/{id}/cambiar-titulo', [artistaController::class,'cambiarTitulo'])->name('imagen.cambiar-titulo');
+
+
+
+Route::delete('/cuenta/{user}', [administradorController::class,'eliminar'])->name('cuenta.eliminar');
+Route::delete('/admin/deleteCuenta/{id}', [administradorController::class,'deleteCuenta'])->name('admin.deleteCuenta');
+
+Route::get('/admin/artista/{user}',  [administradorController::class,'adminArtista'])->name('admin.artista');
+
+Route::post('/admin/banImagen/{imagen}', [administradorController::class,'banImagen'])->name('admin.banImagen');
+
+Route::post('/admin/desbanear-imagen/{id}', [administradorController::class, 'desbanImagen'])->name('admin.desbanImagen');

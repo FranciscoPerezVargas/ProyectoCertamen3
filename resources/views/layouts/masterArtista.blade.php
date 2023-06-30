@@ -10,6 +10,9 @@
     max-width: 200px; /* Ajusta el tamaño máximo según tus preferencias */
     margin-bottom: 10px; /* Espacio entre las imágenes */
 }
+.banned-image {
+    border: 8px solid red;
+}
 </style>
 
 

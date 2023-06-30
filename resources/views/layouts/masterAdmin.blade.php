@@ -8,7 +8,11 @@
 
 
 
-
+<style>
+    .border-red {
+    border: 8px solid red;
+}
+</style>
 
 
 

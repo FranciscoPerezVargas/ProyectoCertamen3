@@ -24,8 +24,9 @@
             Administrador
         </div>
         <div class="card-body">
-            <form action="{{ route('administrador.index') }}" method="GET">
+            @php $errors = session('errors') ?? null; @endphp
 
+            <form action="{{ route('administrador.index') }}" method="GET">
                 @csrf
                 <div class="mb-3">
                     <label for="user" class="form-label">Usuario</label>
@@ -39,6 +40,17 @@
                     <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
                 </div>
             </form>
+            
+            @if ($errors && $errors->any())
+                <div class="alert alert-danger mt-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
         </div>
     </div>
 
@@ -48,8 +60,9 @@
                 Artista
             </div>
             <div class="card-body">
+                @php $errorsAr = session('errors') ?? null; @endphp
+            
                 <form action="{{ route('artista.index') }}" method="GET">
-
                     @csrf
                     <div class="mb-3">
                         <label for="user" class="form-label">Usuario</label>
@@ -63,17 +76,28 @@
                         <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
                     </div>
                 </form>
+                
+                @if ($errorsAr && $errorsAr->any())
+                    <div class="alert alert-danger mt-4">
+                        <ul>
+                            @foreach ($errorsAr->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
+            
         
         <div class="card">
             <div class="card-header">
                 Publico
             </div>
             <div class="card-body" style="text-align: center;">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="{{ route('publico.index') }}" class="btn btn-primary btn-lg">Go somewhere</a>
+                <h5 class="card-title">Entra gratis sin registro</h5>
+                <p class="card-text">si no entonces no</p>
+                <a href="{{ route('publico.index') }}" class="btn btn-primary btn-lg">Ver imagenes de los artistas</a>
             </div>
         </div>
         
